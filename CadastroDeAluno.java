@@ -32,8 +32,8 @@ public class CadastroDeAluno {
     // Tela do menu principal
     String menuInicial = "##########################\n" +
         "#      MENU PRINCIPAL    \n" +
-        "#   1) Administrar       \n" +
-        "#   2) Menu Clientes     \n" +
+        "#   1) Genrecias alunos     \n" +
+        "#   2) Listar alunos ordem alfabética    \n" +
         "#   x) Sair              \n" +
         "##########################\n";
 
