@@ -25,8 +25,8 @@ public class CadastroDeAluno {
     // Cada linha um alunos com os dados desse aluno
 
     //
-    int capacidadeMaximaDaEscola = 100;
-    String dadosDosAlunos[][] = new String[capacidadeMaximaDaEscola][5];
+    int alunosCadastrados = 0;
+    String dadosDosAlunos[][] = new String[1][5];
 
     // char para função entrada do menu
     char op = ' ';
@@ -40,7 +40,7 @@ public class CadastroDeAluno {
         "#   4) Gerar relatório     \n" +
         "#   x) Sair              \n" +
         "##########################\n" +
-        "# Alunos " + capacidadeMaximaDaEscola + "/" + 0 + "\n";
+        "# Alunos " + alunosCadastrados + "/" + dadosDosAlunos.length + "\n";
 
     // Loop para fazer a logica do programa
     while (op != 'x') {
@@ -48,7 +48,15 @@ public class CadastroDeAluno {
       op = Entrada.leiaChar(menuInicial);
 
       if (op == '1') {
-        cadastrarAlunos(dadosDosAlunos);
+        // Aumenta matriz se estiver cheia
+        if (alunosCadastrados >= dadosDosAlunos.length ) {
+          dadosDosAlunos = aumentarMatriz(dadosDosAlunos);
+        }
+        
+        //usa numero de alunos como indice do novo aluno e aumenta o contador
+        cadastrarAlunos(dadosDosAlunos, alunosCadastrados);
+        alunosCadastrados++;
+
       } else if (op == '2') {
         listarAlunos(dadosDosAlunos);
       } else if (op == '3') {
@@ -60,24 +68,7 @@ public class CadastroDeAluno {
 
   }
 
-  public static void cadastrarAlunos(String[][] dadosDosAlunos) {
-
-    // posição do ultimo aluno registrado
-    int UltimoRegistro = -1;
-
-    // buscar posição do ultimo aluno registrado
-    for (int i = 0; i < dadosDosAlunos.length; i++) {
-
-      // salva o nome do aluno
-      String nomeNaLista = dadosDosAlunos[i][0];
-
-      // verifica se existe alunos é difernte de vazio
-      // se for vazio retorna a posição atual de i e para o FOR
-      if (nomeNaLista == null || nomeNaLista == "") {
-        UltimoRegistro = i;
-        break;
-      }
-    }
+  public static void cadastrarAlunos(String[][] dadosDosAlunos, int index) {
 
     // Ler do dados do novo aluno
     String nomeDoAluno = Entrada.leiaString("Nome completo do aluno: ");
@@ -87,11 +78,11 @@ public class CadastroDeAluno {
     String cidadeDoAlunoDoAluno = Entrada.leiaString("Cidade do aluno: ");
 
     // Salvar dados do aluno na matriz na ultima posição
-    dadosDosAlunos[UltimoRegistro][0] = nomeDoAluno;
-    dadosDosAlunos[UltimoRegistro][1] = emailDoAluno;
-    dadosDosAlunos[UltimoRegistro][2] = telefoneDoAluno;
-    dadosDosAlunos[UltimoRegistro][3] = idadeDoAluno;
-    dadosDosAlunos[UltimoRegistro][4] = cidadeDoAlunoDoAluno;
+    dadosDosAlunos[index][0] = nomeDoAluno;
+    dadosDosAlunos[index][1] = emailDoAluno;
+    dadosDosAlunos[index][2] = telefoneDoAluno;
+    dadosDosAlunos[index][3] = idadeDoAluno;
+    dadosDosAlunos[index][4] = cidadeDoAlunoDoAluno;
 
   }
 
@@ -157,4 +148,16 @@ public class CadastroDeAluno {
     System.out.println("Cidade do aluno: " + aluno[2]);
 
   }
+
+  public static String[][] aumentarMatriz(String[][] matriz) {
+    String[][] nova = new String[matriz.length * 2][5];
+    for (int i = 0; i < matriz.length; i++) {
+      for (int j = 0; j < matriz[i].length; j++) {
+        nova[i][j] = matriz[i][j];
+      }
+    }
+    return nova;
+  }
+
+
 }
