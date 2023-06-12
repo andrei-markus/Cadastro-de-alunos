@@ -24,36 +24,36 @@ public class CadastroDeAluno {
     // Sera 100 linhas com 5 colunas
     // Cada linha um alunos com os dados desse aluno
 
-    //
-    int alunosCadastrados = 0;
-    String dadosDosAlunos[][] = new String[1][5];
+    Arquivo DadosSalvosCSV = new Arquivo("Dados.csv");
+    // Arquivo Relatorio = new Arquivo("Relatorio.csv");
 
-    // char para função entrada do menu
+    String dadosDosAlunos[][] = new String[100][5];
+
+    int alunosCadastrados = carega_csv(DadosSalvosCSV, dadosDosAlunos);
+
     char op = ' ';
-
-    // Tela do menu principal
-    String menuInicial = "##########################\n" +
-        "#      MENU PRINCIPAL    \n" +
-        "#   1) Adicionar alunos     \n" +
-        "#   2) Listar alunos    \n" +
-        "#   3) Pesquisar aluno     \n" +
-        "#   4) Gerar relatório     \n" +
-        "#   x) Sair              \n" +
-        "##########################\n" +
-        "# Alunos " + alunosCadastrados + "/" + dadosDosAlunos.length + "\n";
 
     // Loop para fazer a logica do programa
     while (op != 'x') {
+      String menuInicial = "##########################\n" +
+          "#      MENU PRINCIPAL    \n" +
+          "#   1) Adicionar alunos     \n" +
+          "#   2) Listar alunos    \n" +
+          "#   3) Pesquisar aluno     \n" +
+          "#   4) Gerar relatório     \n" +
+          "#   x) Sair              \n" +
+          "##########################\n" +
+          "# Alunos " + alunosCadastrados + "/" + dadosDosAlunos.length + "\n";
 
       op = Entrada.leiaChar(menuInicial);
 
       if (op == '1') {
         // Aumenta matriz se estiver cheia
-        if (alunosCadastrados >= dadosDosAlunos.length ) {
+        if (alunosCadastrados >= dadosDosAlunos.length) {
           dadosDosAlunos = aumentarMatriz(dadosDosAlunos);
         }
-        
-        //usa numero de alunos como indice do novo aluno e aumenta o contador
+
+        // usa numero de alunos como indice do novo aluno e aumenta o contador
         cadastrarAlunos(dadosDosAlunos, alunosCadastrados);
         alunosCadastrados++;
 
@@ -65,7 +65,7 @@ public class CadastroDeAluno {
       }
 
     }
-
+    salvar_dados(DadosSalvosCSV, dadosDosAlunos);
   }
 
   public static void cadastrarAlunos(String[][] dadosDosAlunos, int index) {
@@ -144,8 +144,8 @@ public class CadastroDeAluno {
     System.out.println("Nome do aluno: " + aluno[0]);
     System.out.println("Email do aluno: " + aluno[1]);
     System.out.println("Telefone do aluno: " + aluno[2]);
-    System.out.println("Idade do aluno: " + aluno[2]);
-    System.out.println("Cidade do aluno: " + aluno[2]);
+    System.out.println("Idade do aluno: " + aluno[3]);
+    System.out.println("Cidade do aluno: " + aluno[4]);
 
   }
 
@@ -159,5 +159,52 @@ public class CadastroDeAluno {
     return nova;
   }
 
+  public static int carega_csv(Arquivo Dados, String[][] matriz) {
+    int alunosCadastrados = 0;
+    if (Dados.abrirLeitura()) {
 
+      Dados.abrirLeitura();
+
+      while (true) {
+
+        String linha = Dados.lerLinha();
+
+        if (linha == "" || linha == null) {
+          break;
+        }
+
+        if (alunosCadastrados >= matriz.length) {
+          matriz = aumentarMatriz(matriz);
+        }
+
+        String[] aluno = linha.split(";");
+
+        matriz[alunosCadastrados][0] = (aluno[0]);// Aluno
+        matriz[alunosCadastrados][1] = (aluno[1]);// e-mail
+        matriz[alunosCadastrados][2] = (aluno[2]);// telefone
+        matriz[alunosCadastrados][3] = (aluno[3]);// idade
+        matriz[alunosCadastrados][4] = (aluno[4]);// cidade
+        alunosCadastrados++;
+
+      }
+
+      Dados.fecharArquivo();
+    }
+    return alunosCadastrados;
+  }
+
+  public static void salvar_dados(Arquivo Dados, String[][] matriz) {
+
+    Dados.abrirEscrita();
+
+    for (int i = 0; i < matriz.length; i++) {
+
+      if (matriz[i][0] != null) {
+        Dados.escreverLinha(
+            matriz[i][0] + ";" + matriz[i][1] + ";" + matriz[i][2] + ";" + matriz[i][3] + ";" + matriz[i][4]);
+      }
+    }
+
+    Dados.fecharArquivo();
+  }
 }
