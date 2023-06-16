@@ -1,0 +1,6 @@
+------------Relatorio------------
+Aluno:Joao Camilo				joao@gmail.com				51994461433				19				Lajeado
+Aluno:Deivid				Deivid@gmail.com				5194461433				20				Lajeado
+Aluno:Maria				Maria@gmail.com				5194461433				19				Estrela
+Aluno:Fabricio				Fabricio@gmail.com				5194461433				22				Lajeado
+------------------------

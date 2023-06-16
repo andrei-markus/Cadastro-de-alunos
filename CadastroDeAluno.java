@@ -24,8 +24,9 @@ public class CadastroDeAluno {
     // Sera 100 linhas com 5 colunas
     // Cada linha um alunos com os dados desse aluno
 
+    Arquivo RelatorioAlunos = new Arquivo("Relatorio.txt");
+
     Arquivo DadosSalvosCSV = new Arquivo("Dados.csv");
-    // Arquivo Relatorio = new Arquivo("Relatorio.csv");
 
     String dadosDosAlunos[][] = new String[100][5];
 
@@ -62,6 +63,7 @@ public class CadastroDeAluno {
       } else if (op == '3') {
         pesquisarAluno(dadosDosAlunos);
       } else if (op == '4') {
+        gerarRelatorio(dadosDosAlunos, RelatorioAlunos);
       }
 
     }
@@ -206,5 +208,23 @@ public class CadastroDeAluno {
     }
 
     Dados.fecharArquivo();
+  }
+
+  public static void gerarRelatorio(String[][] matriz, Arquivo Relatorio) {
+
+    Relatorio.abrirEscrita();
+
+    Relatorio.escreverLinha("------------Relatorio------------");
+    for (int i = 0; i < matriz.length; i++) {
+
+      if (matriz[i][0] == null) {
+        break;
+      }
+      Relatorio.escreverLinha("Aluno:" + matriz[i][0] + "\t\t\t\t" + matriz[i][1] + "\t\t\t\t" + matriz[i][2] + "\t\t\t\t"
+          + matriz[i][3] + "\t\t\t\t" + matriz[i][4]);
+    }
+    Relatorio.escreverLinha("------------------------");
+
+    Relatorio.fecharArquivo();
   }
 }
