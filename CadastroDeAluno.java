@@ -165,7 +165,7 @@ public class CadastroDeAluno {
     int alunosCadastrados = 0;
     if (Dados.abrirLeitura()) {
 
-      Dados.abrirLeitura();
+      // Dados.abrirLeitura();
 
       while (true) {
 
