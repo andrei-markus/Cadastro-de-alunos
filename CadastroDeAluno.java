@@ -137,26 +137,25 @@ public class CadastroDeAluno {
       }
 
       // verifica se nome
-      if (nomeNaLista.contains(nomeDesejado)) {
+      if (nomeNaLista.toUpperCase().contains(nomeDesejado.toUpperCase())) {
         // Salva nome do aluno
         dadosDoAlunoDesejado[0] = dadosDosAlunos[i][0];
         dadosDoAlunoDesejado[1] = dadosDosAlunos[i][1];
         dadosDoAlunoDesejado[2] = dadosDosAlunos[i][2];
         dadosDoAlunoDesejado[3] = dadosDosAlunos[i][3];
         dadosDoAlunoDesejado[4] = dadosDosAlunos[i][4];
+        imprimirDadosDoAluno(dadosDoAlunoDesejado);
       }
     }
-    imprimirDadosDoAluno(dadosDoAlunoDesejado);
   }
 
   public static void imprimirDadosDoAluno(String[] aluno) {
-
+    System.out.println("------------------------");
     System.out.println("Nome do aluno: " + aluno[0]);
     System.out.println("Email do aluno: " + aluno[1]);
     System.out.println("Telefone do aluno: " + aluno[2]);
     System.out.println("Idade do aluno: " + aluno[3]);
     System.out.println("Cidade do aluno: " + aluno[4]);
-
   }
 
   public static String[][] aumentarMatriz(String[][] matriz) {
