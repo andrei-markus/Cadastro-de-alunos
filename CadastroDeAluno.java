@@ -25,6 +25,8 @@ public class CadastroDeAluno {
     // Cada linha um alunos com os dados desse aluno
 
     Arquivo RelatorioAlunos = new Arquivo("Relatorio.txt");
+    Arquivo RealtorioAlfabetico = new Arquivo("RelatorioAlfabetico.txt");
+    Arquivo RelatorioPorCidade = new Arquivo("RelatorioPorCidade.txt");
 
     Arquivo DadosSalvosCSV = new Arquivo("Dados.csv");
 
@@ -64,6 +66,12 @@ public class CadastroDeAluno {
         pesquisarAluno(dadosDosAlunos);
       } else if (op == '4') {
         gerarRelatorio(dadosDosAlunos, RelatorioAlunos);
+
+        ordenarPorNome(dadosDosAlunos);
+        gerarRelatorio(dadosDosAlunos, RealtorioAlfabetico);
+
+        ordenarPorCidade(dadosDosAlunos);
+        gerarRelatorio(dadosDosAlunos, RelatorioPorCidade);
       }
 
     }
@@ -165,8 +173,6 @@ public class CadastroDeAluno {
     int alunosCadastrados = 0;
     if (Dados.abrirLeitura()) {
 
-      // Dados.abrirLeitura();
-
       while (true) {
 
         String linha = Dados.lerLinha();
@@ -227,4 +233,27 @@ public class CadastroDeAluno {
 
     Relatorio.fecharArquivo();
   }
+
+  public static void ordenarPorNome(String[][] matriz) {
+    ordenar(matriz, 0);
+  }
+  public static void ordenarPorCidade(String[][] matriz) {
+    ordenar(matriz, 4);
+  }
+
+  public static void ordenar(String[][] matriz, int coluna) {
+    boolean flag = true;
+    while (flag) {
+      flag = false;
+      for (int i = 1; matriz[i][0] != null; i++) {
+        if (matriz[i][coluna].compareTo(matriz[i-1][coluna]) < 0) {
+          flag = true;
+          String[] temp = matriz[i-1];
+          matriz[i-1] = matriz[i];
+          matriz[i] = temp;
+        }
+      }
+    }
+  }
+
 }
